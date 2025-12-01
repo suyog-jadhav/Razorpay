@@ -14,7 +14,8 @@ document.getElementById('pay-btn').onclick = async function (e) {
         });
 
         if (!response.ok) {
-            throw new Error('Network response was not ok ' + response.statusText);
+            const errorData = await response.json();
+            throw new Error(errorData.error || errorData.description || 'Network response was not ok');
         }
 
         const order = await response.json();

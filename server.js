@@ -40,7 +40,7 @@ app.post('/create-order', async (req, res) => {
         res.json(order);
     } catch (error) {
         console.error("Error creating order:", error);
-        res.status(500).send("Error creating order");
+        res.status(500).json({ error: error.message, description: error.description });
     }
 });
 
