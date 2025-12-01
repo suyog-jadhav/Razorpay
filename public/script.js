@@ -14,16 +14,12 @@ document.getElementById('pay-btn').onclick = async function (e) {
 
     const order = await response.json();
 
+    const keyResponse = await fetch('/get-key');
+    const keyData = await keyResponse.json();
+
     // 2. Configure Razorpay Options
     const options = {
-        "key": "YOUR_KEY_ID_HERE", // Enter the Key ID generated from the Dashboard. NOTE: This is public, but better to fetch from backend if possible or keep it here for simplicity in this demo. Ideally, don't hardcode if you can avoid it, but for client-side integration it's often visible. Wait, actually, the key is needed here.
-        // Better practice: Pass the key from the backend in the /create-order response or a separate config endpoint.
-        // For this simple demo, I'll fetch it or just ask user to replace it.
-        // Let's fetch the key from the backend to be cleaner? Or just keep it simple.
-        // Let's assume the user will replace it here or I can pass it from backend.
-        // To make it easier for the user, I will modify the backend to send the key_id as well, or just let them paste it here.
-        // Actually, standard practice for these simple demos often has the key in JS.
-        // I'll leave a placeholder.
+        "key": keyData.key,
         "amount": order.amount,
         "currency": order.currency,
         "name": "Acme Corp",
