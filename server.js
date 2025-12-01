@@ -30,6 +30,10 @@ app.get('/get-key', (req, res) => {
 // Create Order Endpoint
 app.post('/create-order', async (req, res) => {
     try {
+        if (!process.env.RAZORPAY_KEY_ID || !process.env.RAZORPAY_KEY_SECRET) {
+            throw new Error("Razorpay API Keys are missing in environment variables.");
+        }
+
         const options = {
             amount: req.body.amount * 100, // Amount in smallest currency unit (paise)
             currency: "INR",
